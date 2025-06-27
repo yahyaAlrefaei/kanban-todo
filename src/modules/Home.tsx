@@ -1,8 +1,13 @@
+import HomePageHeader from "@/components/HomePageHeader";
+import TaskBoard from "@/components/TaskBoard";
+import { Container } from "@mui/material";
+
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <Container>
+      <HomePageHeader />
+      <TaskBoard />
+    </Container>
   );
 };
 
