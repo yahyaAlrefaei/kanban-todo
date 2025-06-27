@@ -36,27 +36,40 @@ The app allows users to manage tasks across four columns: **Backlog**, **In Prog
 ```bash
 git clone https://github.com/yourusername/kanban-todo.git
 cd kanban-todo
+```
+
+### 2. Install Dependencies & Start the App
+
+```bash
 yarn install   # Install dependencies
 yarn dev       # Run development server
 yarn api       # Run json-server on port 4000
 yarn build     # Create a production build
 yarn lint      # Run ESLint
+```
 
+---
 
+## 📁 Folder Structure
+
+> Below is the main structure of the project directories and files:
+
+```plaintext
 /components
-  TaskCard.tsx           # Displays a single task
-  TaskColumn.tsx         # Represents a column (Backlog, etc.)
-  TaskFormDialog.tsx     # Dialog for creating/updating tasks
-  SearchBar.tsx          # Task search input
+  TaskCard.tsx           → Displays a single task
+  TaskColumn.tsx         → Represents a column (Backlog, etc.)
+  TaskFormDialog.tsx     → Dialog for creating/updating tasks
+  SearchBar.tsx          → Task search input
 
 /lib
-  api.ts                 # API helper functions using axios
-  store.ts               # Zustand global store
-  queryClient.ts         # React Query configuration
+  api.ts                 → API helper functions using axios
+  store.ts               → Zustand global store
+  queryClient.ts         → React Query configuration
 
 /pages
-  index.tsx              # Main UI layout and logic
+  index.tsx              → Main Kanban UI logic
 
 /public
-  db.json                # Mock tasks data for json-server
+  db.json                → Mock task data for json-server
+
 ```
