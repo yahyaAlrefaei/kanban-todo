@@ -66,10 +66,13 @@ yarn lint      # Run ESLint
   store.ts               → Zustand global store
   queryClient.ts         → React Query configuration
 
-/pages
+/modules
   index.tsx              → Main Kanban UI logic
 
+/types
+  index.ts               → Custom types
+
 /public
-  db.json                → Mock task data for json-server
+  db.json                  → Mock task data for json-server
 
 ```

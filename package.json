@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "api": "json-server --watch public/db.json --port 4000"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
