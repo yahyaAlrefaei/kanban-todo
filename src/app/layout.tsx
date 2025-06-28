@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ReactQueryProvider from "@/lib/react-query-provider";
+import { ThemeRegistry } from "./theme/ThemeRegistry";
 
 export const metadata: Metadata = {
   title: "Kanban Todo",
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ThemeRegistry>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </ThemeRegistry>
       </body>
     </html>
   );
