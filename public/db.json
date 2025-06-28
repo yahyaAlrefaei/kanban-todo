@@ -61,13 +61,79 @@
       "id": "240a",
       "title": "backlkjsdflkjsdf",
       "description": "sdfsdlkfsdlkfjdslkf backlig ",
-      "column": "backlog"
+      "column": "in_progress"
     },
     {
       "id": "55d3",
       "title": "ddddd",
       "description": "hhhhhhhhhsss",
       "column": "review"
+    },
+    {
+      "id": "f84d",
+      "title": "Iste sint asperiore",
+      "description": "Voluptatibus molliti",
+      "column": "done"
+    },
+    {
+      "id": "6433",
+      "title": "Occaecat irure elit",
+      "description": "Fugiat expedita qui",
+      "column": "done"
+    },
+    {
+      "id": "984e",
+      "title": "Inventore consectetu",
+      "description": "Nulla beatae deserun",
+      "column": "done"
+    },
+    {
+      "id": "2e0d",
+      "title": "Voluptatem Proident",
+      "description": "Cum eos quos nisi f",
+      "column": "done"
+    },
+    {
+      "id": "fe7a",
+      "title": "Eligendi aliquid min",
+      "description": "Nihil obcaecati aspe",
+      "column": "done"
+    },
+    {
+      "id": "e597",
+      "title": "Id irure asperiores ",
+      "description": "Aut voluptatem mini",
+      "column": "done"
+    },
+    {
+      "id": "73a1",
+      "title": "Omnis laboris magna ",
+      "description": "Iste qui eum sed sed",
+      "column": "done"
+    },
+    {
+      "id": "1163",
+      "title": "Qui reiciendis fugia",
+      "description": "Voluptas qui neque r",
+      "column": "done"
+    },
+    {
+      "id": "5be7",
+      "title": "Nostrum cupidatat cu",
+      "description": "Quia voluptates recu",
+      "column": "done"
+    },
+    {
+      "id": "7ab9",
+      "title": "In neque nisi labori",
+      "description": "Rerum exercitationem",
+      "column": "done"
+    },
+    {
+      "id": "6999",
+      "title": "Culpa soluta non te",
+      "description": "Qui cupiditate conse",
+      "column": "done"
     }
   ]
 }

@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Box, Typography } from "@mui/material";
 import { taskSchema } from "./form.validation";
-import { TColumn } from "@/types";
+import { IAddAndEditModalProps, TColumn } from "@/types";
 import { createTask, fetchTasks } from "@/lib/api";
 import FormInputs from "./FormInputs";
 import useTaskStore from "@/lib/store";
@@ -26,16 +26,11 @@ const style = {
   p: 4,
 };
 
-export interface IAddAndEditModalProps {
-  open: boolean;
-  handleClose: () => void;
-  columnName: TColumn;
-}
-
 const AddAndEditModal = ({
   open,
   handleClose,
   columnName,
+  task,
 }: IAddAndEditModalProps) => {
   const methods = useForm<ITaskFormData>({
     resolver: yupResolver(taskSchema),
@@ -93,7 +88,7 @@ const AddAndEditModal = ({
                   gap: "16px",
                 }}
               >
-                <FormInputs columnName={columnName} />
+                <FormInputs columnName={columnName} task={task} />
                 <Box sx={{ display: "flex", gap: 2, width: "100%" }}>
                   <Button
                     sx={{ flex: 1 }}

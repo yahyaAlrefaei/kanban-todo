@@ -7,10 +7,16 @@ import {
   FormControl,
   FormHelperText,
 } from "@mui/material";
-import { TColumn } from "@/types";
+import { ITask, TColumn } from "@/types";
 import { useEffect } from "react";
 
-const FormInputs = ({ columnName }: { columnName: TColumn }) => {
+const FormInputs = ({
+  columnName,
+  task,
+}: {
+  columnName?: TColumn;
+  task?: ITask;
+}) => {
   const {
     control,
     setValue,
@@ -30,6 +36,14 @@ const FormInputs = ({ columnName }: { columnName: TColumn }) => {
       setValue("column", columnName);
     }
   }, [columnName, setValue]);
+
+  useEffect(() => {
+    if (task) {
+      setValue("title", task.title);
+      setValue("description", task.description);
+      setValue("column", task.column);
+    }
+  }, [task, setValue]);
 
   return (
     <>

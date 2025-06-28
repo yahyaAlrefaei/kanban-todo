@@ -2,13 +2,9 @@
 import HomePageHeader from "@/components/HomePageHeader";
 import TaskBoard from "@/components/TaskBoard";
 import useTaskStore from "@/lib/store";
-import { ITask } from "@/types";
+import { IHomeProps } from "@/types";
 import { Container } from "@mui/material";
 import { useEffect } from "react";
-
-export interface IHomeProps {
-  data: ITask[];
-}
 
 const Home = ({ data }: IHomeProps) => {
   const { setTasks } = useTaskStore();

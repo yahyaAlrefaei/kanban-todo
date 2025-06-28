@@ -1,16 +1,11 @@
 "use client";
-import { ITask } from "@/types";
+import { ITaskCardProps } from "@/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Box, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import TaskActions from "./TaskActions";
-
-export interface ITaskCardProps {
-  task: ITask;
-  columnName: string;
-}
 
 const TaskCard = ({ task, columnName }: ITaskCardProps) => {
   const {
@@ -67,7 +62,7 @@ const TaskCard = ({ task, columnName }: ITaskCardProps) => {
             </Typography>
           )}
         </Box>
-        <TaskActions />
+        <TaskActions task={task} />
       </CardContent>
     </Card>
   );
