@@ -5,10 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Box, Typography } from "@mui/material";
 import { taskSchema } from "./form.validation";
 import { IAddAndEditModalProps, TColumn } from "@/types";
-import { createTask, fetchTasks, updateTask } from "@/lib/api";
+import { createTask, updateTask } from "@/lib/api";
 import FormInputs from "./FormInputs";
-import useTaskStore from "@/lib/store";
+// import useTaskStore from "@/lib/store";
 import { useEffect } from "react";
+import { revalidateTasks } from "@/utils/revalidateTasks";
 
 interface ITaskFormData {
   title: string;
@@ -45,7 +46,7 @@ const AddAndEditModal = ({
   const [loading, setLoading] = React.useState(false);
 
   const { handleSubmit, reset } = methods;
-  const { setTasks } = useTaskStore();
+  // const { setTasks } = useTaskStore();
 
   const onSubmit = async (data: ITaskFormData) => {
     setLoading(true);
@@ -59,8 +60,9 @@ const AddAndEditModal = ({
       }
       reset();
       handleClose();
-      const updatedTasks = await fetchTasks();
-      setTasks(updatedTasks ?? []);
+      // const updatedTasks = await fetchTasks();
+      // setTasks(updatedTasks ?? []);
+      revalidateTasks("tasks");
     } catch (error) {
       console.error("Failed to save task:", error);
     } finally {

@@ -2,17 +2,7 @@ import { ITask } from "@/types";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_API;
-
-export const fetchTasks = async () => {
-  try {
-    const response = await axios.get<ITask[]>(`${BASE_URL}/tasks`);
-
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_API;
 
 export const createTask = async (task: Omit<ITask, "id"> | ITask) => {
   try {

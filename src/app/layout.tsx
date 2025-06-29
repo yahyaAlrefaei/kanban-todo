@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ReactQueryProvider from "@/lib/react-query-provider";
 import { ThemeRegistry } from "./theme/ThemeRegistry";
 import { Toaster } from "react-hot-toast";
 
@@ -18,9 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Toaster position="top-right" />
-        <ThemeRegistry>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </ThemeRegistry>
+        <ThemeRegistry>{children}</ThemeRegistry>
       </body>
     </html>
   );

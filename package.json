@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tanstack/react-query": "^5.81.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
