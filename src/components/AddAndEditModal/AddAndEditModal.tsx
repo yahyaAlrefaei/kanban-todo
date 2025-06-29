@@ -5,9 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Box, Typography } from "@mui/material";
 import { taskSchema } from "./form.validation";
 import { IAddAndEditModalProps, TColumn } from "@/types";
-import { createTask, fetchTasks } from "@/lib/api";
+import { createTask, fetchTasks, updateTask } from "@/lib/api";
 import FormInputs from "./FormInputs";
 import useTaskStore from "@/lib/store";
+import { useEffect } from "react";
 
 interface ITaskFormData {
   title: string;
@@ -41,20 +42,29 @@ const AddAndEditModal = ({
     },
   });
 
+  const [loading, setLoading] = React.useState(false);
+
   const { handleSubmit, reset } = methods;
   const { setTasks } = useTaskStore();
 
   const onSubmit = async (data: ITaskFormData) => {
-    console.log("data....", data);
-
+    setLoading(true);
     try {
-      await createTask(data);
+      if (task?.id) {
+        // Edit existing task
+        await updateTask({ ...data, id: task.id });
+      } else {
+        // Create new task
+        await createTask(data);
+      }
       reset();
       handleClose();
       const updatedTasks = await fetchTasks();
       setTasks(updatedTasks ?? []);
     } catch (error) {
-      console.error("Failed to create task:", error);
+      console.error("Failed to save task:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,6 +72,23 @@ const AddAndEditModal = ({
     reset();
     handleClose();
   };
+
+  // Update form values when editing a task
+  useEffect(() => {
+    if (task && open) {
+      reset({
+        title: task.title,
+        description: task.description,
+        column: task.column,
+      });
+    } else if (open && columnName) {
+      reset({
+        title: "",
+        description: "",
+        column: columnName,
+      });
+    }
+  }, [task, open, columnName, reset]);
 
   return (
     <div>
@@ -104,8 +131,9 @@ const AddAndEditModal = ({
                     type="submit"
                     variant="contained"
                     size="large"
+                    disabled={loading}
                   >
-                    Send
+                    {task?.id ? "Update" : "Create"}
                   </Button>
                 </Box>
               </form>

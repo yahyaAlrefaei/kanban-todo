@@ -32,7 +32,6 @@ const FormInputs = ({
 
   useEffect(() => {
     if (columnName) {
-      console.log(columnName);
       setValue("column", columnName);
     }
   }, [columnName, setValue]);

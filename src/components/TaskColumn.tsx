@@ -1,6 +1,6 @@
 "use client";
 
-import { ITaskColumnProps, TColumn } from "@/types";
+import { ITaskColumnProps } from "@/types";
 import TaskCard from "./TaskCard";
 import {
   SortableContext,
@@ -9,57 +9,27 @@ import {
 
 import { Box, Typography } from "@mui/material";
 import formatColumnName from "@/utils/formatName";
-import { useDroppable } from "@dnd-kit/core";
+
 import AddTaskButton from "./AddTaskButton";
 import AddAndEditModal from "./AddAndEditModal/AddAndEditModal";
-import { useEffect, useRef, useState, useMemo } from "react";
+import useTaskColumn from "@/hooks/useTaskColumn";
 
 interface TaskColumnProps extends ITaskColumnProps {
   searchQuery: string;
 }
 
 const TaskColumn = ({ column, searchQuery }: TaskColumnProps) => {
-  const { setNodeRef, isOver } = useDroppable({
-    id: column.title,
-  });
-  const [open, setOpen] = useState(false);
-  const [columnNameSelected, setColumnNameSelected] = useState<TColumn>();
-  const [visibleTasks, setVisibleTasks] = useState(3);
-  const handleOpen = (columnName: string) => {
-    setColumnNameSelected(columnName as TColumn);
-    setOpen(true);
-  };
-
-  const handleClose = () => setOpen(false);
-  const observerRef = useRef<HTMLDivElement | null>(null);
-
-  const filteredTasks = useMemo(() => {
-    if (!searchQuery) return column.tasks;
-    return column.tasks.filter((task) =>
-      `${task.title} ${task.description}`
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-    );
-  }, [searchQuery, column.tasks]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setVisibleTasks((prev) => Math.min(prev + 5, filteredTasks.length));
-        }
-      },
-      {
-        threshold: 1.0,
-      }
-    );
-
-    if (observerRef.current) observer.observe(observerRef.current);
-    return () => {
-      if (observerRef.current) observer.unobserve(observerRef.current);
-    };
-  }, [filteredTasks.length]);
+  const {
+    setNodeRef,
+    isOver,
+    open,
+    columnNameSelected,
+    visibleTasks,
+    handleOpen,
+    handleClose,
+    observerRef,
+    filteredTasks,
+  } = useTaskColumn(column, searchQuery);
 
   return (
     <>
@@ -78,8 +48,8 @@ const TaskColumn = ({ column, searchQuery }: TaskColumnProps) => {
           paddingRight: 0,
           backgroundColor: isOver ? "#e3f2fd" : "#f1f2f4",
           borderRadius: 1,
-          minHeight: "calc(100vh - 100px)",
-          maxHeight: "calc(100vh - 100px)",
+          minHeight: "calc(100vh - 200px)",
+          maxHeight: "calc(100vh - 200px)",
           transition: "background-color 0.2s ease",
           border: isOver ? "2px dashed #1976d2" : "2px solid transparent",
           minWidth: "310px",
@@ -89,7 +59,7 @@ const TaskColumn = ({ column, searchQuery }: TaskColumnProps) => {
         <Box
           sx={{
             overflowY: "auto",
-            maxHeight: "calc(100vh - 200px)",
+            maxHeight: "calc(100vh - 250px)",
             paddingRight: 1,
           }}
         >
@@ -97,7 +67,9 @@ const TaskColumn = ({ column, searchQuery }: TaskColumnProps) => {
             {formatColumnName(column.title)} ({filteredTasks.length})
           </Typography>
           <SortableContext
-            items={filteredTasks.map((task) => task.id)}
+            items={filteredTasks.map(
+              (task) => task.id ?? `task-${Math.random()}`
+            )}
             strategy={verticalListSortingStrategy}
           >
             {filteredTasks.slice(0, visibleTasks).map((task) => (
@@ -106,7 +78,19 @@ const TaskColumn = ({ column, searchQuery }: TaskColumnProps) => {
           </SortableContext>
           <div ref={observerRef} />
         </Box>
-        <AddTaskButton handleOpen={() => handleOpen(column.title)} />
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            width: "95%",
+            bgcolor: "#f1f2f4",
+            p: 1,
+          }}
+        >
+          <AddTaskButton handleOpen={() => handleOpen(column.title)} />
+        </Box>
       </Box>
     </>
   );

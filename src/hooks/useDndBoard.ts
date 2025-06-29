@@ -30,10 +30,6 @@ const useDndBoard = () => {
 
     if (activeColumn === overColumn) return;
 
-    console.log(
-      `Moving task ${active.id} from ${activeColumn} to ${overColumn}`
-    );
-
     moveTask({
       fromColumn: activeColumn as any,
       toColumn: overColumn as any,
