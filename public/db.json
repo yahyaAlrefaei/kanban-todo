@@ -170,6 +170,12 @@
       "title": "dsfsdf",
       "description": "dfsdfdsfdsfdsfsdfdf",
       "column": "in_progress"
+    },
+    {
+      "id": "e2b2",
+      "title": "Placeat amet id ex",
+      "description": "In exercitation nobi",
+      "column": "review"
     }
   ]
 }

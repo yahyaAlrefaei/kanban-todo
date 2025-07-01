@@ -43,3 +43,9 @@ export interface IAddAndEditModalProps {
   columnName?: TColumn;
   task?: ITask;
 }
+
+export interface ITaskFormData {
+  title: string;
+  description: string;
+  column: TColumn;
+}

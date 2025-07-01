@@ -1,20 +1,10 @@
 import * as React from "react";
 import Modal from "@mui/material/Modal";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Box, Typography } from "@mui/material";
-import { taskSchema } from "./form.validation";
-import { IAddAndEditModalProps, TColumn } from "@/types";
-import { createTask, updateTask } from "@/lib/api";
+import { FormProvider } from "react-hook-form";
+import { IAddAndEditModalProps } from "@/types";
 import FormInputs from "./FormInputs";
-import { useEffect } from "react";
-import { revalidateTasks } from "@/utils/revalidateTasks";
-
-interface ITaskFormData {
-  title: string;
-  description: string;
-  column: TColumn;
-}
+import useAddAndEditModal from "@/hooks/useAddAndEditModal";
 
 const style = {
   position: "absolute",
@@ -33,58 +23,8 @@ const AddAndEditModal = ({
   columnName,
   task,
 }: IAddAndEditModalProps) => {
-  const methods = useForm<ITaskFormData>({
-    resolver: yupResolver(taskSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-      column: null as unknown as TColumn,
-    },
-  });
-
-  const [loading, setLoading] = React.useState(false);
-
-  const { handleSubmit, reset } = methods;
-
-  const onSubmit = async (data: ITaskFormData) => {
-    setLoading(true);
-    try {
-      if (task?.id) {
-        await updateTask({ ...data, id: task.id });
-      } else {
-        await createTask(data);
-      }
-      reset();
-      handleClose();
-      revalidateTasks("tasks");
-    } catch (error) {
-      console.error("Failed to save task:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCloseButton = () => {
-    reset();
-    handleClose();
-  };
-
-  // Update form values when editing a task
-  useEffect(() => {
-    if (task && open) {
-      reset({
-        title: task.title,
-        description: task.description,
-        column: task.column,
-      });
-    } else if (open && columnName) {
-      reset({
-        title: "",
-        description: "",
-        column: columnName,
-      });
-    }
-  }, [task, open, columnName, reset]);
+  const { methods, loading, handleSubmit, onSubmit, handleCloseButton } =
+    useAddAndEditModal({ open, handleClose, columnName, task });
 
   return (
     <div>
@@ -129,7 +69,7 @@ const AddAndEditModal = ({
                     size="large"
                     disabled={loading}
                   >
-                    {task?.id ? "Update" : "Create"}
+                    {loading ? "Loading..." : task?.id ? "Update" : "Create"}
                   </Button>
                 </Box>
               </form>
