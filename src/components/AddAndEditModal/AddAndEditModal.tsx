@@ -7,7 +7,6 @@ import { taskSchema } from "./form.validation";
 import { IAddAndEditModalProps, TColumn } from "@/types";
 import { createTask, updateTask } from "@/lib/api";
 import FormInputs from "./FormInputs";
-// import useTaskStore from "@/lib/store";
 import { useEffect } from "react";
 import { revalidateTasks } from "@/utils/revalidateTasks";
 
@@ -46,22 +45,17 @@ const AddAndEditModal = ({
   const [loading, setLoading] = React.useState(false);
 
   const { handleSubmit, reset } = methods;
-  // const { setTasks } = useTaskStore();
 
   const onSubmit = async (data: ITaskFormData) => {
     setLoading(true);
     try {
       if (task?.id) {
-        // Edit existing task
         await updateTask({ ...data, id: task.id });
       } else {
-        // Create new task
         await createTask(data);
       }
       reset();
       handleClose();
-      // const updatedTasks = await fetchTasks();
-      // setTasks(updatedTasks ?? []);
       revalidateTasks("tasks");
     } catch (error) {
       console.error("Failed to save task:", error);

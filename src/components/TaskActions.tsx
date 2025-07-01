@@ -5,7 +5,6 @@ import EditIcon from "./Icons/EditIcon";
 import MenuIcon from "./Icons/MenuIcon";
 import DeleteAlert from "./DeleteAlert";
 import { deleteTask } from "@/lib/api";
-// import useTaskStore from "@/lib/store";
 import { ITask } from "@/types";
 import AddAndEditModal from "./AddAndEditModal/AddAndEditModal";
 import { revalidateTasks } from "@/utils/revalidateTasks";
@@ -15,7 +14,6 @@ const TaskActions = ({ task }: { task: ITask }) => {
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const open = Boolean(anchorEl);
-  // const { setTasks } = useTaskStore();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -26,14 +24,11 @@ const TaskActions = ({ task }: { task: ITask }) => {
   };
 
   const handleConfirmDelete = async () => {
-    console.log("Deleting task...");
     try {
-      if (typeof task.id === "number") {
+      if (task.id) {
         await deleteTask(task.id);
       }
       setOpenDeleteAlert(false);
-      // const updatedTasks = await fetchTasks();
-      // setTasks(updatedTasks ?? []);
       revalidateTasks("tasks");
     } catch (error) {
       console.error("Failed to delete task:", error);

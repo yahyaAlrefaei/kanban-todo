@@ -10,7 +10,6 @@ export const createTask = async (task: Omit<ITask, "id">) => {
     toast.success("Task created successfully!");
     return response.data;
   } catch (error) {
-    console.error(error.response);
     toast.error("Failed to create task.");
     throw error;
   }
@@ -22,19 +21,18 @@ export const updateTask = async (task: ITask) => {
     toast.success("Task updated successfully!");
     return response.data;
   } catch (error) {
-    toast.error("Failed to update task.", error);
+    toast.error("Failed to update task.");
+    throw error;
   }
 };
 
 export const deleteTask = async (id: number) => {
-  console.log("test from delete");
   try {
     const response = await axios.delete(`${BASE_URL}/tasks/${id}`);
     toast.success("Task deleted.");
-    console.log("Delete task response:", response);
     return response.data;
   } catch (error) {
     toast.error("Failed to delete task.");
-    console.error("Delete task error:", error);
+    throw error;
   }
 };
