@@ -49,10 +49,8 @@ const useTaskStore = create<IUseTaskStore>((set) => ({
       const task = state.taskColumns[fromColumn].find((t) => t.id === taskId);
       if (!task) return state;
 
-      // تحديث العمود في المهمة
       const updatedTask = { ...task, column: toColumn };
 
-      // تحديث المهمة في الخادم
       updateTask(updatedTask).catch((error) => {
         console.error("Failed to update task on server:", error);
       });
