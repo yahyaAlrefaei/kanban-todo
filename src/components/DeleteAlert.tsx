@@ -22,6 +22,7 @@ const DeleteAlert = ({
   open,
   handleClose,
   handleConfirmDelete,
+  loading,
 }: IDeleteAlertProps) => {
   return (
     <div>
@@ -56,8 +57,9 @@ const DeleteAlert = ({
               variant="contained"
               size="large"
               color="error"
+              disabled={loading}
             >
-              Delete
+              {loading ? "Loading..." : "Delete"}
             </Button>
           </Box>
         </Box>

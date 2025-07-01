@@ -23,6 +23,7 @@ export interface IDeleteAlertProps {
   open: boolean;
   handleClose: () => void;
   handleConfirmDelete: () => void;
+  loading: boolean;
 }
 
 export interface ITaskCardProps {

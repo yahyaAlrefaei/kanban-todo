@@ -13,6 +13,7 @@ const TaskActions = ({ task }: { task: ITask }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -24,6 +25,7 @@ const TaskActions = ({ task }: { task: ITask }) => {
   };
 
   const handleConfirmDelete = async () => {
+    setLoading(true);
     try {
       if (task.id) {
         await deleteTask(task.id);
@@ -32,6 +34,8 @@ const TaskActions = ({ task }: { task: ITask }) => {
       revalidateTasks("tasks");
     } catch (error) {
       console.error("Failed to delete task:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,6 +45,7 @@ const TaskActions = ({ task }: { task: ITask }) => {
         open={openDeleteAlert}
         handleClose={() => setOpenDeleteAlert(false)}
         handleConfirmDelete={handleConfirmDelete}
+        loading={loading}
       />
       <AddAndEditModal
         open={openEditModal}
